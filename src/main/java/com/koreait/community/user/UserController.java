@@ -1,8 +1,11 @@
 package com.koreait.community.user;
 
+import com.koreait.community.Const;
+import com.koreait.community.model.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,20 +14,54 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    public UserService service;
+    private UserService service;
 
     @GetMapping("/login")
-    public void login(){}
+    public void login() {}
+
+    @PostMapping("/login")
+    public String loginProc(UserEntity entity, RedirectAttributes reAttr) {
+        int result = service.login(entity);
+        if(result != 1) {
+            switch(result) {
+                case 0:
+                    reAttr.addFlashAttribute(Const.MSG, Const.ERR_1); //세션이용, addattribut는 겟방식 이용
+                    break;
+                case 2:
+                    reAttr.addFlashAttribute(Const.MSG, Const.ERR_2);
+                    break;
+                case 3:
+                    reAttr.addFlashAttribute(Const.MSG, Const.ERR_3);
+                    break;
+            }
+            reAttr.addFlashAttribute("id", entity.getUid());
+            return "redirect:/user/login";
+        }
+        return "redirect:/board/list/1";
+    }
 
     @GetMapping("/join")
-    public void join(){}
+    public void join() {}
+
+    @PostMapping("/join")
+    public String joinProc(UserEntity entity, RedirectAttributes reAttr) {
+        int result = service.join(entity);
+        if(result == 0){
+            reAttr.addFlashAttribute(Const.MSG, Const.ERR_4);
+            return "redirect:/user/join";
+        }
+        service.login(entity);
+        return "redirect:/board/list";
+    }
 
     @GetMapping("/idChk/{uid}")
-    @ResponseBody //리턴이 json이 됨 받을때는 requestbody
-    public Map<String, Integer> idChk(@PathVariable String uid){ //주소값의 값을 뽑아냄
+    @ResponseBody
+    public Map<String, Integer> idChk(@PathVariable String uid) {
         System.out.println("uid : " + uid);
-        Map<String, Integer> res = new HashMap<>();
+
+        Map<String, Integer> res = new HashMap();
         res.put("result", service.idChk(uid));
+
         return res;
     }
 }

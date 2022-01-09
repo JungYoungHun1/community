@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     UserEntity selUser(UserEntity entity);
+    int insUser(UserEntity entity);
 }
