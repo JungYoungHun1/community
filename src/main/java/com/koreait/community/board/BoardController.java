@@ -50,4 +50,14 @@ public class BoardController {
         int result = service.delBoard(entity);
         return "redirect:/board/list/" + entity.getIcategory();
     }
+    @GetMapping("/mod")
+    public String mod(BoardDTO dto, Model model){
+        model.addAttribute("data", service.detailBoard(dto));
+        return "board/write";
+    }
+    @PostMapping("/mod")
+    public String modProc(BoardEntity entity){
+        int result = service.updBoard(entity);
+        return "redirect:/board/detail?iboard=" + entity.getIboard();
+    }
 }

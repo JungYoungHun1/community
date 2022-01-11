@@ -15,8 +15,9 @@
         VALUES (${icategory}, #{title}, #{ctnt}, ${iuser})
     </insert>
 
+
     <select id="detailBoard" resultType="BoardVO">
-        SELECT A.iuser, A.lastip, A.ctnt,A.title, A.rdt,
+        SELECT A.iboard, A.iuser, A.lastip, A.ctnt,A.title, A.rdt,
                A.hits, A.icategory, B.nm as writernm, C.nm
         FROM t_board A
                  INNER JOIN t_user B ON A.iuser = B.iuser
@@ -27,7 +28,7 @@
 
     <update id="addHits">
         UPDATE t_board
-        SET hits = hits + 1
+        SET hits = hits + 1, lastip = #{lastip}
         WHERE iboard = ${iboard}
     </update>
 
@@ -40,18 +41,14 @@
             <if test=" ctnt != null and ctnt != '' ">
                 ctnt = #{ctnt},
             </if>
-            <if test=" lastip != null and lastip != '' ">
-                lastip = #{lastip}
-            </if>
             <if test=" isdel == 1 ">
                 isdel = 1
             </if>
         </set>
         WHERE iboard = ${iboard}
-        <if test=" lastip == null ">
             AND iuser = ${iuser}
-        </if>
     </update>
+
 
 
 </mapper>
