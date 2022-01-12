@@ -77,8 +77,10 @@ public class UserController {
 
     @ResponseBody
     @PostMapping("/mypage/profile")
-    public String mypageProfileProc(MultipartFile profileimg){
-        System.out.println("fileName : " + profileimg.getOriginalFilename());
-        return"zz";
+    public Map<String, String> mypageProfileProc(MultipartFile profileimg){
+        String fileNm = service.uploadProfileImg(profileimg);
+        Map<String, String>result = new HashMap<>();
+        result.put("result", fileNm);
+        return result;
     }
 }

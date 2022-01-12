@@ -1,4 +1,6 @@
 {
+    const dataElem= document.querySelector('#data');
+
     const profileFileElem = document.querySelector('#profile-file');
     if(profileFileElem){
         profileFileElem.addEventListener('change', function (){
@@ -27,8 +29,21 @@
         }).then(res => res.json())
             .then(data => {
                 console.log(data);
+                setProfileImg(data);
             }).catch((e) => {
                 console.log(e);
         });
+    }
+    const setProfileImg = (data) => {
+        if(!data.result) { return; }
+        const iuser = dataElem.dataset.iuser;
+        const src = `/images/user/${iuser}/${data.result}`;
+
+        const profileImgElem = profileViewElem.querySelector('img');
+        profileImgElem.src = src;
+
+        //헤더 이미지
+        const headerProfileImgElem = document.querySelector('#header-profileimg');
+        headerProfileImgElem.src = src;
     }
 }

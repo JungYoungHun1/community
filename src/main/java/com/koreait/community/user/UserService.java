@@ -1,15 +1,14 @@
 package com.koreait.community.user;
 
 import com.koreait.community.Const;
+import com.koreait.community.MyFileUtils;
 import com.koreait.community.UserUtils;
 import com.koreait.community.model.UserEntity;
-import org.apache.ibatis.annotations.Mapper;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
@@ -18,6 +17,9 @@ public class UserService {
 
     @Autowired
     private UserUtils userUtils;
+
+    @Autowired
+    private MyFileUtils myFileUtils;
 
     public int login(UserEntity entity) { //uid, upw
         UserEntity dbUser = null;
@@ -59,6 +61,33 @@ public class UserService {
         UserEntity result = mapper.selUser(entity);
 
         return result == null ? 1 : 0;
+    }
+    //이미지 업로드, 저장 위치 리턴
+    public String uploadProfileImg(MultipartFile mf){
+        if(mf == null) { return null;}
+
+        UserEntity loginUser = userUtils.getLoginUser();
+
+        final String PATH = Const.UPLOAD_IMG_PATH + "/user/" + loginUser.getIuser();
+        String fileNm = myFileUtils.saveFile(PATH, mf);
+        System.out.println("fileNm : " + fileNm);
+        if(fileNm == null){ return null;}
+
+        UserEntity entity = new UserEntity();
+        entity.setIuser(loginUser.getIuser());
+
+        //기존 파일명 담기
+        String oldFilePath = PATH + "/" + loginUser.getProfileimg();
+        myFileUtils.delFile(oldFilePath);
+
+        //파일명 DB에 업데이트
+        entity.setProfileimg(fileNm);
+        mapper.updUser(entity);
+
+        //세션 프로필 파일명 수정
+        loginUser.setProfileimg(fileNm);
+
+        return fileNm;
     }
 
 }

@@ -18,7 +18,7 @@
 
     <select id="detailBoard" resultType="BoardVO">
         SELECT A.iboard, A.iuser, A.lastip, A.ctnt,A.title, A.rdt,
-               A.hits, A.icategory, B.nm as writernm, C.nm
+               A.hits, A.icategory, B.profileimg, B.iuser, B.nm as writernm, C.nm
         FROM t_board A
                  INNER JOIN t_user B ON A.iuser = B.iuser
                  INNER JOIN t_board_category C ON A.icategory = C.icategory
