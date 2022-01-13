@@ -80,19 +80,3 @@
         });
     }
 }
-
-
-// const submitBtnElem = document.querySelector('#submitBtn');
-// submitBtnElem.addEventListener('click', function (e){
-//     if(!idChkElem.innerHTML){
-//         e.preventDefault();
-//         alert('아이디 중복 체크를 해주세요.')
-//     }
-//     if(idChkElem.innerHTML == '이미 사용중인 아이디입니다.'){
-//         e.preventDefault();
-//         alert('다른 아이디를 사용해 주세요.')
-//     }
-// })
-// uidBtnElem.addEventListener('keyup', function (){
-//     idChkElem.innerHTML = null;
-// })

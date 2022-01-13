@@ -10,7 +10,9 @@
 
     <select id="selUser" resultType="UserEntity">
         SELECT * FROM t_user
-        WHERE uid = #{uid}
+        WHERE
+        <if test=" uid != null and uid != '' "> uid = #{uid} </if>
+        <if test=" iuser > 0 "> iuser = #{iuser} </if>
     </select>
 
     <update id="updUser">

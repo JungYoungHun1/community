@@ -5,8 +5,8 @@
     <h1>로그인</h1>
     <div>${requestScope.msg}</div>
     <form action="/user/login" method="post" id="login-frm">
-        <div><label>id : <input type="text" name="uid" value="${requestScope.tryLogin.uid}"></label></div>
-        <div><label>password : <input type="password" name="upw"></label></div>
+        <div><label>id : <input type="text" name="uid" <%--value="${requestScope.tryLogin.uid}"--%> value="ju39001"></label></div>
+        <div><label>password : <input type="password" name="upw" value="ju@13657213"></label></div>
         <div>
             <input type="submit" value="LOGIN">
         </div>

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="my" uri="tld/MyCustomJstlTag.tld" %>
+
 
 <div>
     <c:if test="${sessionScope.loginUser != null}">
@@ -26,11 +28,15 @@
                             <td>${item.iboard}</td>
                             <td><c:out value="${item.title}"></c:out></td>
                             <td>${item.hits}</td>
-                            <c:set var="profileImg" value="/res/img/defaultProfile.png"/>
-                            <c:if test="${item.profileimg != null}">
-                                <c:set var="profileImg" value="/images/user/${item.iuser}/${item.profileimg}"/>
-                            </c:if>
-                            <td class="m-r-20">${item.writernm} <div class=" circular--img circular--size40"><img src="${profileImg}"></div></td>
+<%--                            <c:set var="profileImg" value="/res/img/defaultProfile.png"/>--%>
+<%--                            <c:if test="${item.profileimg != null}">--%>
+<%--                                <c:set var="profileImg" value="/images/user/${item.iuser}/${item.profileimg}"/>--%>
+<%--                            </c:if>--%>
+<%--                            <td class="m-r-20">${item.writernm} <div class=" circular--img circular--size40"><img src="${profileImg}"></div></td>--%>
+                            <td class="m-r-20">${item.writernm} <my:profileImg idVal="profile-view"
+                                                                               classVal="circular--img wh-30"
+                                                                               iuser="${item.iuser}"
+                                                                               profileImgVal="${item.profileimg}"/></td>
                             <td>${item.rdt}</td>
                         </tr>
                     </c:forEach>
