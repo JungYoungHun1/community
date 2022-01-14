@@ -66,11 +66,8 @@ public class UserController {
     @GetMapping("/idChk/{uid}")
     @ResponseBody
     public Map<String, Integer> idChk(@PathVariable String uid) {
-        System.out.println("uid : " + uid);
-
         Map<String, Integer> res = new HashMap();
         res.put("result", service.idChk(uid));
-
         return res;
     }
     @GetMapping("/mypage/profile")

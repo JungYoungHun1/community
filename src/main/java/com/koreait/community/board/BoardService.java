@@ -3,6 +3,7 @@ package com.koreait.community.board;
 import com.koreait.community.UserUtils;
 import com.koreait.community.model.BoardDTO;
 import com.koreait.community.model.BoardEntity;
+import com.koreait.community.model.BoardPrevNextVO;
 import com.koreait.community.model.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,8 @@ public class BoardService {
             e.printStackTrace();
             return 2;
         }
+    }
+    public BoardPrevNextVO selPrevNext(BoardVO vo){
+        return mapper.selPrevNext(vo);
     }
 }

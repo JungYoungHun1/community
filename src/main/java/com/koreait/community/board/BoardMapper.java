@@ -2,6 +2,7 @@ package com.koreait.community.board;
 
 import com.koreait.community.model.BoardDTO;
 import com.koreait.community.model.BoardEntity;
+import com.koreait.community.model.BoardPrevNextVO;
 import com.koreait.community.model.BoardVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,5 @@ public interface BoardMapper {
     BoardVO detailBoard(BoardDTO dto);
     int addHits(BoardDTO dto);
     int updBoard(BoardEntity entity);
+    BoardPrevNextVO selPrevNext(BoardVO vo);
 }

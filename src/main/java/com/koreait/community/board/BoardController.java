@@ -3,6 +3,7 @@ package com.koreait.community.board;
 import com.koreait.community.Const;
 import com.koreait.community.model.BoardDTO;
 import com.koreait.community.model.BoardEntity;
+import com.koreait.community.model.BoardPrevNextVO;
 import com.koreait.community.model.BoardVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,10 @@ public class BoardController {
             lastip = req.getRemoteAddr();
         }
         dto.setLastip(lastip);
-        model.addAttribute("data", service.detailBoard(dto));
+        BoardVO vo = service.detailBoard(dto);
+        BoardPrevNextVO pnVo = service.selPrevNext(vo);
+        model.addAttribute("data", vo);
+        model.addAttribute("prev", pnVo);
     }
 
     @GetMapping("/list/{icategory}")

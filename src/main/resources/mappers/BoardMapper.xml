@@ -49,6 +49,16 @@
             AND iuser = ${iuser}
     </update>
 
+    <select id="selPrevNext" resultType="BoardPrevNextVO">
+        <![CDATA[
+        SELECT (SELECT iboard FROM t_board WHERE isdel = 0 AND icategory = ${icategory} AND iboard > ${iboard} ORDER BY iboard LIMIT 1)
+        AS previboard,
+        (SELECT iboard FROM t_board WHERE isdel = 0 AND icategory = ${icategory} AND iboard < ${iboard} ORDER BY iboard DESC LIMIT 1)
+        AS nextiboard]]>
+    </select>
+
+
+
 
 
 </mapper>
