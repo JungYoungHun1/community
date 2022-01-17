@@ -8,7 +8,7 @@
         <button id="btnDel" data-iboard="${param.iboard}" data-icategory="${data.icategory}">삭제</button>
     </div>
 </c:if>
-    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}"></div>
+    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"></div>
 
 <div>카테고리 : ${requestScope.data.nm}</div>
 <div>조회수 : ${requestScope.data.hits}</div>
@@ -27,9 +27,10 @@
 <c:if test="${sessionScope.loginUser != null}">
     <div class="m-t-20">
         <form id="cmtFrm">
-            <input type="text" name ="ctnt"><input type="button" id="btn_submit" value="댓글달기">
+            <input type="text" name ="ctnt">
+            <input type="button" id="btn_submit" value="댓글달기">
     </form>
     </div>
 </c:if>
-<div class="m-t-20">댓글 리스트</div>
+<div class="m-t-20" id="cmt_list">댓글 리스트</div>
 </div>

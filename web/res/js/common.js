@@ -41,5 +41,11 @@ const myFetch = {
             'headers': { 'Content-Type': 'application/json' },
             'body': JSON.stringify(param)
         }), cb);
+    },
+    delete: function (url, cb){
+        return this.send(fetch(url, {
+            'method': 'delete',
+            'headers': { 'Content-Type': 'application/json' },
+        }), cb)
     }
 }
