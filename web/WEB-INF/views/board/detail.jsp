@@ -4,11 +4,12 @@
 <div class="p10">
 <c:if test="${sessionScope.loginUser.iuser == requestScope.data.iuser}">
     <div>
-        <button id="btnMod" data-iboard="${param.iboard}">수정</button>
-        <button id="btnDel" data-iboard="${param.iboard}" data-icategory="${data.icategory}">삭제</button>
+        <button id="btnMod">수정</button>
+        <button id="btnDel">삭제</button>
     </div>
 </c:if>
-    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"></div>
+    <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"
+         data-profileimg="${sessionScope.loginUser.profileimg}" data-nm="${sessionScope.loginUser.nm}"></div>
 
 <div>카테고리 : ${requestScope.data.nm}</div>
 <div>조회수 : ${requestScope.data.hits}</div>

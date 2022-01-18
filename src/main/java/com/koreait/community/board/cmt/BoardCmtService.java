@@ -15,7 +15,8 @@ public class BoardCmtService {
 
     public int insBoardCmt(BoardCmtEntity entity){
         entity.setIuser(userUtils.getLoginUserPk());
-        return mapper.insBoardCmt(entity);
+        mapper.insBoardCmt(entity);
+        return entity.getIcmt();
     }
     public List<BoardCmtVO> selBoardCmtList(int iboard){
         BoardCmtEntity entity = new BoardCmtEntity();
@@ -27,5 +28,9 @@ public class BoardCmtService {
         entity.setIcmt(icmt);
         entity.setIuser(userUtils.getLoginUserPk());
         return mapper.delBoardCmt(entity);
+    }
+    public int updBoardCmt(BoardCmtEntity entity){
+        entity.setIuser(userUtils.getLoginUserPk());
+        return mapper.updBoardCmt(entity);
     }
 }
