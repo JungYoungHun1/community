@@ -1,6 +1,8 @@
 package com.koreait.community;
 
 public class Const {
+    public static final String RESULT = "result";
+
     public static final String UPLOAD_IMG_PATH = "C:\\upload\\images";
     public static final String SUB_MENU_LIST = "subMenuList";
 

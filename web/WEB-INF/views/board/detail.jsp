@@ -4,8 +4,8 @@
 <div class="p10">
 <c:if test="${sessionScope.loginUser.iuser == requestScope.data.iuser}">
     <div>
-        <button id="btnMod">수정</button>
-        <button id="btnDel">삭제</button>
+        <button id="modBtn">수정</button>
+        <button id="delBtn">삭제</button>
     </div>
 </c:if>
     <div id="data" data-icategory="${data.icategory}" data-iboard="${data.iboard}" data-iuser="${sessionScope.loginUser.iuser}"
@@ -25,6 +25,15 @@
         <a href="/board/detail?iboard=${requestScope.prev.nextiboard}"><input type="button" value="다음글"></a>
     </c:if>
 </div>
+    <c:if test="${sessionScope.loginUser != null}">
+        <div>
+            <i id="fav_icon" class="fs-30 pointer far fa-thumbs-up"></i>
+
+
+        </div>
+    </c:if>
+
+
 <c:if test="${sessionScope.loginUser != null}">
     <div class="m-t-20">
         <form id="cmtFrm">

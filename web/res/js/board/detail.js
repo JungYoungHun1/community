@@ -49,7 +49,7 @@
             };
             myFetch.post('/board/cmt', (data) => {
                 console.log('result : ' + data.result);
-                switch(data.result) {
+                switch(data.result) { //data.result에 icmt값이 넘어온다.
                     case 0:
                         alert('댓글 등록에 실패하였습니다.');
                         break;
@@ -73,6 +73,9 @@
                         table.appendChild(tr);
 
                         cmtFrmElem.ctnt.value = null;
+                        document.documentElement.scrollTop = document.body.scrollHeight
+
+                        //window.scrollTo(0, document.body.scrollHeight);
                         break;
                 }
             }, param);
@@ -223,13 +226,80 @@
             }
         });
     }
+
+    const getTrLen = () => {
+        const cmtListElem = document.querySelector('#cmt_list');
+        const trArr = cmtListElem.querySelectorAll('table tr');
+        return trArr.length;
+    }
     getCmtList();
+
+    //좋아요 ------------------------------------------------------------ [start] --
+    const favIconElem = document.querySelector('#fav_icon');
+    const isFav = () => {
+        const iboard = dataElem.dataset.iboard;
+        myFetch.get(`/board/fav/${iboard}`, (data) => {
+            switch(data.result){
+                case 0:
+                    disableFav();
+                    break;
+                case 1:
+                    enableFav();
+                    break;
+            }
+        });
+    }
+
+    const disableFav = () => {
+        if(favIconElem){
+            favIconElem.classList.remove('fas');
+            favIconElem.classList.add('far');
+        }
+    }
+
+    const enableFav = () => {
+        if(favIconElem){
+            favIconElem.classList.remove('far');
+            favIconElem.classList.add('fas');
+        }
+    }
+
+    if(dataElem.dataset.iuser) {
+        isFav();
+    }
+    favIconElem.addEventListener('click', function (){
+        const param = {
+            iboard: dataElem.dataset.iboard,
+            //iuser: dataElem.dataset.iuser
+        }
+        if(favIconElem.classList.contains('far')) {
+            myFetch.post('/board/fav', (data) => {
+                switch (data.result) {
+                    case 0:
+                        alert('좋아요에 실패하였습니다.');
+                        break;
+                    case 1:
+                        isFav();
+                        break;
+                }
+            }, param)
+        }else if(favIconElem.classList.contains('fas')){
+            const iboard = dataElem.dataset.iboard;
+            myFetch.delete(`/board/fav/${iboard}`, (data) => {
+                switch (data.result){
+                    case 0:
+                        alert('좋아요 취소에 실패하였습니다.');
+                        break;
+                    case 1 :
+                        isFav();
+                        break;
+                }
+            });
+        }
+    })
+    //좋아요 ------------------------------------------------------------ [end] --
 }
 
-const getTrLen = () => {
-    const cmtListElem = document.querySelector('#cmt_list');
-    const trArr = cmtListElem.querySelectorAll('table tr');
-    return trArr.length;
-}
+
 
 // Restful API > POST, GET, PUT, DELETE
